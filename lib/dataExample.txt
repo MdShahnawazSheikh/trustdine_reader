@@ -1,0 +1,8 @@
+{
+    "Margherita": {"Price": 234.54, "Size": "Large", "Quantity": 1}, 
+    "Cheese Burger": {"Price": 203.87, "Size": "Small", "Quantity": 1}, 
+    "Chicken Barbecue": {"Price": 234.54, "Size": "Small", "Quantity": 1}, 
+    "Whooper": {"Price": 234.54, "Size": "Large", "Quantity": 1}, 
+    "Veggie": {"Price": 203.87, "Size": "Small", "Quantity": 1}, 
+    "Big Mac": {"Price": 203.87, "Size": "Small", "Quantity": 1}
+}

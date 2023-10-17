@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1081722589385",
+    "project_id": "trustdine-fae14",
+    "storage_bucket": "trustdine-fae14.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081722589385:android:ce3faaf4c3010a00387d18",
+        "android_client_info": {
+          "package_name": "com.example.kiosk_food"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8ahfF8NS4odQzb3jYy9JVNiJ00nkQ55A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081722589385:android:7796f574e0f9a4db387d18",
+        "android_client_info": {
+          "package_name": "com.example.trustdine_reader"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8ahfF8NS4odQzb3jYy9JVNiJ00nkQ55A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
