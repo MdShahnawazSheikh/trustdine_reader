@@ -1,6 +1,6 @@
 <!-- <img src="https://github.com/MdShahnawazSheikh/trustdine-closed-beta/blob/main/assets/trustdine_logo.png" alt="TrustDine Logo" width="150px"/> -->
 # TrustDine Reader
-## [Download Latest Version](https://github.com/MdShahnawazSheikh/trustdine-closed-beta/raw/main/release/latest-build.apk)
+## [Download Latest Version](https://github.com/MdShahnawazSheikh/trustdine_reader/raw/main/release/latest-version.apk)
 #### Version 2.5.0 Available Now.
 
 ## What's New?
