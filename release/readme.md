@@ -4,8 +4,9 @@
 #### Version 2.0.0 Available Now.
 
 ## What's New?
-- Added dynamic mode of payment.
-- Added option to mark order as fulfilled.
+- Now dynamically displays mode of payment.
+- Added option to mark order as fulfilled to prevent duplicate orders.
+- Order status text color changes based on fulfillment status.
 - New app icon.
 - Bug fixes and performance improvements.
 
