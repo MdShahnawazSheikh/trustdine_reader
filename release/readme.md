@@ -29,4 +29,4 @@
 
 ---
 
-**Note:** This changelog provides a summary of the major changes in each version of the TrustDine app. For detailed information about each release, including bug fixes and minor improvements, please refer to the release notes provided with the respective app updates.
+**Note:** This changelog provides a summary of the major changes in each version of the TrustDine Reader app. For detailed information about each release, including bug fixes and minor improvements, please refer to the release notes provided with the respective app updates.
