@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 const bgColor = Color(0xfffafafa);
@@ -71,11 +71,14 @@ class ResultPage extends StatelessWidget {
             backgroundColor: bgColor,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
-              centerTitle: true,
+              // centerTitle: true,
               title: const Text(
                 "Order Details",
                 style: TextStyle(color: Colors.black),
               ),
+              actions: [
+                IconButton(onPressed: () {}, icon: Icon(Icons.check_circle))
+              ],
             ),
             body: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -119,3 +122,4 @@ class ResultPage extends StatelessWidget {
     );
   }
 }
+ */

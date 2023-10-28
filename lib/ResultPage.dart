@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 const bgColor = Color(0xfffafafa);
 
@@ -25,13 +27,56 @@ class ResultPage extends StatelessWidget {
     }
   }
 
+  Future<void> markOrderFulfilled(String orderId) async {
+    try {
+      // Fetch order details from Firestore
+      DocumentSnapshot<Map<String, dynamic>> orderSnapshot =
+          await FirebaseFirestore.instance
+              .collection('Orders')
+              .doc(orderId)
+              .get();
+
+      // Get the order data as a Map
+      Map<String, dynamic> orderData = orderSnapshot.data() ?? {};
+
+      // Loop through each item and update the "fulfilled" field to 'yes'
+      orderData.forEach((key, value) {
+        if (value is Map<String, dynamic> &&
+            value.containsKey('fulfilled') &&
+            value['fulfilled'] == 'no') {
+          value['fulfilled'] = 'yes';
+        }
+      });
+
+      // Update the order data in Firestore
+      await FirebaseFirestore.instance
+          .collection('Orders')
+          .doc(orderId)
+          .update(orderData);
+
+      Fluttertoast.showToast(msg: 'Order marked as fulfilled successfully!');
+    } catch (e) {
+      Fluttertoast.showToast(msg: 'Error marking order as fulfilled: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    String modeOfPayment = "Cash";
-    if ((qrData.toString()).contains("pay_")) {
-      modeOfPayment = "Prepaid";
-    }
-
+    String orderFulfilled = "";
+    /* showDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        content: Text("This Order is already fulfilled."),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Go Back")),
+          TextButton(onPressed: () {}, child: Text("See Details")),
+        ],
+      ),
+    ); */
     return FutureBuilder<Map<String, dynamic>>(
       future: fetchOrderDetails(qrData.toString()),
       builder: (context, snapshot) {
@@ -51,12 +96,15 @@ class ResultPage extends StatelessWidget {
         } else {
           // If data is available, display the ordered items using ListView
           Map<String, dynamic> orderData = snapshot.data!;
+          String modeOfPayment = "";
           List<Widget> orderedItems = orderData.entries.map((entry) {
+            modeOfPayment = entry.value['payment mode'];
+            orderFulfilled = entry.value['fulfilled'];
             return Card(
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10))),
-              elevation: 3,
-              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              elevation: 2,
+              margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
               child: ListTile(
                 title: Text(entry.key),
                 subtitle: Text(
@@ -79,14 +127,63 @@ class ResultPage extends StatelessWidget {
                 "Order Details",
                 style: TextStyle(color: Colors.black),
               ),
+              actions: [
+                orderFulfilled == 'no'
+                    ? IconButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CupertinoAlertDialog(
+                                title: const Text(
+                                    'Confirm Marking Order as Fulfilled'),
+                                content: const Text(
+                                    'Are you sure you want to mark this order as fulfilled?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    style: TextButton.styleFrom(
+                                        foregroundColor: Colors.black),
+                                    child: const Text('Cancel'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  TextButton(
+                                    style: TextButton.styleFrom(
+                                        foregroundColor: Colors.red),
+                                    child: const Text('Confirm'),
+                                    onPressed: () {
+                                      // Call the function to mark the order as fulfilled
+                                      markOrderFulfilled(qrData.toString());
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        icon: Icon(
+                          Icons.delete_forever,
+                          color: Colors.red.shade800,
+                        ))
+                    : Container()
+              ],
             ),
             body: Padding(
               padding: const EdgeInsets.all(12.0),
               child: ListView(
                 children: [
                   Text(
-                    "Ordered Items\nMode of Payment: $modeOfPayment",
-                    style: TextStyle(color: Colors.black54, fontSize: 16),
+                    "Order fulfilled: $orderFulfilled",
+                    style: Theme.of(context).textTheme.headline6?.copyWith(
+                        color:
+                            orderFulfilled == 'no' ? Colors.green : Colors.red),
+                  ),
+                  Text(
+                    "Mode of Payment: $modeOfPayment\nOrdered Items:",
+                    style: const TextStyle(color: Colors.black54, fontSize: 16),
                   ),
                   const SizedBox(
                     height: 10,
@@ -95,25 +192,31 @@ class ResultPage extends StatelessWidget {
                 ],
               ),
             ),
-            bottomNavigationBar: Container(
-              padding: const EdgeInsets.all(16),
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Grand Total ($modeOfPayment):',
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    '₹$grandTotal',
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green),
-                  ),
-                ],
+            bottomNavigationBar: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                // color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Grand Total ($modeOfPayment):  ',
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      '₹ $grandTotal',
+                      style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
