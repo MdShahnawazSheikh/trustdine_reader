@@ -78,6 +78,7 @@ class QrScanner extends StatelessWidget {
               flex: 4,
               child: MobileScanner(
                 // fit: BoxFit.contain,
+
                 onDetect: (capture) {
                   if (!isResultPageOpen) {
                     final List<Barcode> barcodes = capture.barcodes;
@@ -86,6 +87,13 @@ class QrScanner extends StatelessWidget {
                       isResultPageOpen =
                           true; // Set flag to true to prevent multiple windows
 
+                      /* fetchFulfilledStatus(qrData).toString() == "yes"
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Scaffold(),
+                              ))
+                          :  */
                       Navigator.push(
                         context,
                         MaterialPageRoute(

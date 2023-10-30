@@ -1,20 +1,20 @@
-<!-- <img src="https://github.com/MdShahnawazSheikh/trustdine-closed-beta/blob/main/assets/trustdine_logo.png" alt="TrustDine Logo" width="150px"/> -->
 # TrustDine Reader
 ## [Download Latest Version](https://github.com/MdShahnawazSheikh/trustdine_reader/raw/main/release/trustdine-reader.apk)
-#### Version 2.0.0 Available Now.
+#### Version 2.0.1 Available Now.
 
 ## What's New?
-- Now dynamically displays mode of payment.
-- Added option to mark order as fulfilled to prevent duplicate orders.
-- Order status text color changes based on fulfillment status.
-- New app icon.
-- Bug fixes and performance improvements.
+- Added animated elements to several pages.
+- Redirection to a different page if order is fulfilled.
 
 ---
 # TrustDine Reader Beta Changelog
 ## Version History:
 
-### Version 2.0.0 (October 10, 2023)
+### Version: 2.0.1 (October 30, 2023)
+- Added animated elements to several pages.
+- Redirection to a different page if order is fulfilled.
+
+### Version 2.0.0 (October 28, 2023)
 - Added dynamic mode of payment.
 - Added option to mark order as fulfilled.
 - New app icon.
